@@ -1,0 +1,65 @@
+@import "../../index.scss";
+
+.select {
+    margin: 0;
+    position: relative;
+    cursor: pointer;
+
+    * {
+        list-style: none;
+    }
+
+    &.open {
+        & > li {
+            &::after {
+                border-left: 0.25rem solid transparent;
+                border-right: 0.25rem solid transparent;
+                border-bottom: 0.25rem solid $light;
+                border-top: none;
+            }
+            ul {
+                max-height: 250px;
+                border: solid 0.2rem $primary;
+            }
+        }
+    }
+
+    & > li {
+        &::after {
+            content: "";
+            width: 0;
+            height: 0;
+            position: absolute;
+            top: calc(50% - (0.25rem / 2));
+            right: 0.5rem;
+            border-left: 0.25rem solid transparent;
+            border-right: 0.25rem solid transparent;
+            border-top: 0.25rem solid $light;
+            transition: 0.3s;
+        }
+
+        ul {
+            width: calc(100% + 0.4rem);
+            max-height: 0;
+            padding: 0;
+            position: absolute;
+            top: 100%;
+            left: -0.2rem;
+            background-color: $dark;
+            border: solid 0.2rem transparent;
+            border-top: solid 0.2rem $primary;
+            overflow-y: auto;
+            transition: 0.3s;
+
+            li {
+                padding: 0.5rem;
+                transition: 0.3s;
+
+                &:hover {
+                    color: $dark;
+                    background-color: $secondary;
+                }
+            }
+        }
+    }
+}
