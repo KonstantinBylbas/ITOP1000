@@ -1,4 +1,4 @@
-const adress = 'https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5';
+const adress = 'https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json';
 
 export default async function ReceiveData(){
     return fetch(adress)

@@ -1,20 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { RateContext } from '../../contexts/rateContext';
+import handlerConvert from '../../services/convert';
 import ReceiveData from '../../services/receiveData';
 import Select from '../select/Select';
 import './Home.scss';
 
 export default function Home() {
 
-    const [rate, setRate] = useState([]);
-
-    useEffect(() => {
-        ReceiveData('team')
-            .then((data) => setRate(data))
-    }, [])
-
+    const { contextRate, setContextRate } = useContext(RateContext);
     const board = ['USD', 'EUR'];
 
-    console.log(rate);
+    useEffect(() => {
+        ReceiveData()
+            .then(data => setContextRate([...contextRate, ...data]))
+    }, [])
 
     return (
         <div className="home">
@@ -25,32 +24,29 @@ export default function Home() {
                     </h1>
 
                     <table>
-                        <tr>
-                            <td>
-                                купівля
-                            </td>
-                            <td></td>
-                            <td>
-                                продаж
-                            </td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                {
+                                    ['валюта', 'курс'].map((row, i = 0) =>
+                                        <td key={i}>{row}</td>
+                                    )
+                                }
+                            </tr>
+                        </thead>
                         {
-                            board.map(currency =>
-                                <tr>
-                                    <td>
-                                        {
-                                            rate.length ? rate.find(rateCurrency => rateCurrency.ccy === currency).buy : ''
-                                        }
-                                    </td>
-                                    <td>
-                                        {currency}
-                                    </td>
-                                    <td>
-                                        {
-                                            rate.length ? rate.find(rateCurrency => rateCurrency.ccy === currency).sale : ''
-                                        }
-                                    </td>
-                                </tr>
+                            board.map((currency, i = 0) =>
+                                <tbody key={i}>
+                                    <tr>
+                                        <td>
+                                            {currency}
+                                        </td>
+                                        <td>
+                                            {
+                                                contextRate.length > 1 ? contextRate.find(rateCurrency => rateCurrency.cc === currency).rate : ''
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
                             )
                         }
                     </table>
@@ -59,10 +55,14 @@ export default function Home() {
 
             <main className='container'>
                 <form className='row'>
-                    <div className="column">
-                        <Select />
-                        <input type="number" minLength={1}  />
-                    </div>
+                    {
+                        [2, 1].map((column, key = 0) =>
+                            <div className="column" key={key++}>
+                                <Select currencies={contextRate.map(currency => currency.cc)} />
+                                <input type="number" minLength={1} data-currency={contextRate[0].cc} onChange={({ target }) => handlerConvert(contextRate, column, target)} />
+                            </div>
+                        )
+                    }
                 </form>
             </main>
         </div>

@@ -21,16 +21,9 @@
 
             tr{
                 td{
+                    width: calc 48%;
                     padding: 0.5rem 0;
                     text-align: center;
-
-                    &:first-of-type, &:last-of-type{
-                        width: calc(50% - 2.5rem);
-                    }
-
-                    &:nth-of-type(2){
-                        width: 5rem;
-                    }
                 }
             }
         }
