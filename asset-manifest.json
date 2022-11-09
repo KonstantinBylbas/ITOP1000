@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ITOP1000/static/css/main.dab461ef.css",
+    "main.js": "/ITOP1000/static/js/main.7bc312a4.js",
+    "index.html": "/ITOP1000/index.html",
+    "main.dab461ef.css.map": "/ITOP1000/static/css/main.dab461ef.css.map",
+    "main.7bc312a4.js.map": "/ITOP1000/static/js/main.7bc312a4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dab461ef.css",
+    "static/js/main.7bc312a4.js"
+  ]
+}
